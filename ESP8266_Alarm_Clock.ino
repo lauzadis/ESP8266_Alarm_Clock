@@ -19,12 +19,9 @@ const long timeoutTime = 2000; // Define timeout time in milliseconds (example: 
 // NTP Client
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
-String weekDays[7]={"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-String months[12]={"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
 // Alarm State
-// * DateTime objects cannot be modified after creation, so I get the current DateTime and use it to create a 7AM DateTime *
-// * This only runs at server startup, so not too expensive CPU wise *
+// * DateTime objects cannot be modified after creation, so I get the current DateTime and use it to create the default 7AM alarm *
 DateTime today = DateTime(timeClient.getEpochTime());
 DateTime alarm = DateTime(20, today.month(), today.day(), 7, 0, 0); // defaults to 7 AM, my normal waking time
 String alarmState = "on"; // Default to having the alarm enabled
@@ -96,7 +93,7 @@ void loop(){
               
               Serial.println(timeData);
               // Update our alarm DateTime with the user selected time, using the current date.
-              // Since we just compare the hours and minutes, I do not think the day or month matters.
+              // Since we just compare the hours and minutes on each loop, I do not think the day or month matters.
               DateTime temp = DateTime(timeClient.getEpochTime());
               alarm = DateTime(20, temp.month(), temp.day(), hour, minute, 0);
             }
