@@ -23,7 +23,7 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org");
 // Alarm State
 // * DateTime objects cannot be modified after creation, so I get the current DateTime and use it to create the default 7AM alarm *
 DateTime today = DateTime(timeClient.getEpochTime());
-DateTime alarm = DateTime(20, today.month(), today.day(), 7, 0, 0); // defaults to 7 AM, my normal waking time
+DateTime alarm = DateTime(22, today.month(), today.day(), 7, 0, 0); // defaults to 7 AM, my normal waking time
 String alarmState = "on"; // Default to having the alarm enabled
 
 void setup() {
@@ -95,7 +95,7 @@ void loop(){
               // Update our alarm DateTime with the user selected time, using the current date.
               // Since we just compare the hours and minutes on each loop, I do not think the day or month matters.
               DateTime temp = DateTime(timeClient.getEpochTime());
-              alarm = DateTime(20, temp.month(), temp.day(), hour, minute, 0);
+              alarm = DateTime(22, temp.month(), temp.day(), hour, minute, 0);
             }
             
             // Display the HTML web page
